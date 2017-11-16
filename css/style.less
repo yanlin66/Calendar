@@ -1,0 +1,149 @@
+@color:#25cc5a;
+header{
+  width: 100%;height: .88rem;background-color: @color;
+  padding: 0 .24rem;position: fixed;top: 0;left: 0;z-index: 999;
+  .h-con{
+    width: 100%;height: 100%;line-height: .88rem;text-align: center;
+    font-size: .36rem;color: #fff;
+  }
+  .h-return{
+    position: absolute;left: .24rem;top: 0;height: .88rem;
+    i{
+      position: absolute;left: 0;top: 0;bottom: 0;margin: auto;
+      color: #fff;width: .5rem;height: .5rem;background:url(../image/back.png) no-repeat center;
+      background-size: contain;
+    }
+  }
+}
+body .main-bg{
+  background-color: #f2f2f2;
+}
+.main{
+  position: fixed;top: 0;bottom: 0;left:0;right:0;margin:auto;z-index:99;overflow-x: hidden;
+  background-color: #fff;padding-top: .88rem;overflow-y: scroll;-webkit-overflow-scrolling: touch;
+}
+//日历
+.zxindex-warp{
+  width: 100%;
+  .calendar-warp{
+    width: 100%;padding: .24rem .24rem .48rem;background-color: #fff;
+    .index-calendar{
+      width: 100%;
+      #schedule-box{
+        width: 3.2rem;
+        margin: 0 auto;
+        padding: .35rem .2rem;
+        font-size: .24rem;
+      }
+      .schedule-hd{
+        display: flex;height: .6rem;
+        justify-content: space-around;align-items: center;
+        padding: 0 1rem;font-size: .26rem;
+        .arrow{
+          cursor: pointer;position: relative;top: -2px;opacity: .6;
+        }
+      }
+      .today{
+        flex: 1;
+        text-align: center;
+      }
+      .ul-box{
+        overflow: hidden;
+      }
+      .ul-box > li{
+        float: left;
+        width: 14.28%;font-size: .24rem;
+        text-align: center;
+        padding: 0.05rem 0;
+      }
+      .other-month{
+        color: #999999;
+      }
+      .current-month{
+        color: #333333;
+      }
+      .today-style{
+        border-radius: 50%;
+        background: #58d321;
+      }
+      .dayStyle{
+        display: inline-block;
+        width: .5rem;
+        height: .5rem;
+        border-radius: 50%;
+        text-align: center;
+        line-height: .5rem;
+        font-size: .28rem;
+        cursor: pointer;
+      }
+      .today-flag{
+        background: #25cc5a;
+        color: #fff;
+      }
+      .boxshaw{
+        box-shadow: 2px 2px .15rem 2px #e3e3e3;
+      }
+      .selected-style {
+        background: #25cc5a;
+        color: #ffffff;
+      }
+      #h3Ele{
+        text-align: center;
+        padding: .1rem;
+      }
+      .schedule-bd li .b-nq {
+        opacity: 0;display: block;font-size: .24rem;color: #999;font-style: normal;
+      }
+      .schedule-bd li:nth-child(7n+5) .b-nq{
+        opacity: 1;
+      }
+      .status{
+        position: relative;
+      }
+      .up:after{
+        content: "";position: absolute;right: -.25rem;top: 0;bottom: 0;
+        width: .3rem;height: .3rem;background: url(../image/up.png) no-repeat center;background-size: contain;
+      }
+      .ka:after{
+        content: "";position: absolute;right: -.25rem;top: 0;bottom: 0;
+        width: .3rem;height: .3rem;background: url(../image/ka.png) no-repeat center;background-size: contain;
+      }
+      .down:after{
+        content: "";position: absolute;right: -.25rem;top: 0;bottom: 0;
+        width: .3rem;height: .3rem;background: url(../image/down.png) no-repeat center;background-size: contain;
+      }
+      .xiu:after{
+        content: "";position: absolute;right: -.25rem;top: 0;bottom: 0;
+        width: .3rem;height: .3rem;background: url(../image/xiu.png) no-repeat center;background-size: contain;
+      }
+      .k:after{
+        content: "";position: absolute;right: -.25rem;top: 0;bottom: 0;
+        width: .3rem;height: .3rem;background: url(../image/k.png) no-repeat center;background-size: contain;
+      }
+    }
+    .schedule-warp{
+      //height: 1rem;
+      overflow: hidden;
+    }
+    .schedule-warp>ul{
+      position: relative;
+      //top: -1.9rem;
+    }
+    .status-icon{
+      margin: 0 auto;width: 100%;height: .5rem;
+      display: flex;display: -webkit-flex;justify-content: center;align-items: center;
+      i{
+        color: #999;font-size: .28rem;margin-right: .1rem;
+      }
+      span{
+        font-size: .24rem;color: #999;
+      }
+    }
+    .punch-warp{
+      width: 4rem;height: .9rem;display: flex;display: -webkit-flex;justify-content: center;align-items: center;font-size: .36rem;margin: 0 auto;background-color: @color;color: #fff;border-radius: 10px;
+      i{
+        display: inline-block;width: .4rem;height: .4rem;background: url(../image/punch.png) no-repeat center;background-size: contain;margin-right: .15rem;
+      }
+    }
+  }
+}

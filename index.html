@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>移动端定制日历</title>
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="font/iconfont.css">
+    <script src="js/jquery.min.js"></script>
+    <script>
+        function resize(originSize,type) {
+            var type=type||"x";
+            var widths=document.documentElement.clientWidth;
+            var heights=document.documentElement.clientHeight;
+            if(type=="x"){
+                var scalex=widths/originSize*100;
+                document.querySelector("html").style.fontSize=scalex+"px";
+            }else if(type=="y"){
+                var scaley=heights/originSize*100;
+                document.querySelector("html").style.fontSize=scaley+"px";
+            }
+        }
+        resize(750);
+    </script>
+</head>
+<body>
+<header>
+    <div class="h-return">
+        <a href="javascript:;"  onclick="history.go(-1)"><i class="img-back"></i></a>
+    </div>
+    <div class="h-con">
+        移动端定制日历
+    </div>
+    <div class="h-right">
+        <a href=""><i class="img-notice"></i></a>
+    </div>
+</header>
+<div class="main main-bg">
+    <div class="zxindex-warp">
+        <div class="calendar-warp">
+            <div class="index-calendar"></div>
+            <div class="status-icon"><i class="iconfont icon-xiangshang1"></i><span>上滑</span></div>
+            <a href="">
+                <div class="punch-warp">
+                    <i class="punch-img"></i>打卡
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+<script src="js/schedule.js"></script>
+<script src="js/fastclick.js"></script>
+<script>
+    var newdata=new Date().toLocaleDateString().replace(/\//g, "");
+    //未打卡
+    var wk=['2017-10-16','2017-10-18','2017-11-02'];
+    //上班卡
+    var sk=['2017-10-17','2017-10-26','2017-11-02'];
+    //下班卡
+    var xk=['2017-10-20','2017-10-28','2017-11-04'];
+    //休息
+    var xiu=['2017-10-30','2017-10-31','2017-11-09'];
+    //正常打卡
+    var daka=[];
+    function status() {
+        $(".current-month").each(function(){
+            var that=this;
+            if($(that).children("span").attr("title").replace(/-/g, "")<=newdata){
+                for(var a=0;a<wk.length;a++){
+                    if($(that).children("span").attr("title")==wk[a]){
+                        $(that).children("span").addClass("status").addClass("k");
+                    }
+                    daka.push(wk[a]);
+                }
+                for(var b=0;b<sk.length;b++){
+                    if($(that).children("span").attr("title")==sk[b]){
+                        $(that).children("span").addClass("status").addClass("up");
+                    }
+                    daka.push(sk[b]);
+                }
+                for(var c=0;c<xk.length;c++){
+                    if($(that).children("span").attr("title")==xk[c]){
+                        $(that).children("span").addClass("status").addClass("down");
+                    }
+                    daka.push(xk[c]);
+                }
+                for(var d=0;d<xiu.length;d++){
+                    if($(that).children("span").attr("title")==xiu[d]){
+                        $(that).children("span").addClass("status").addClass("xiu");
+                    }
+                    daka.push(xiu[d]);
+                }
+                for(var e=0;e<daka.length;e++){
+                    if($(that).children("span").attr("title")!=daka[e]){
+                        $(that).children("span").addClass("status").addClass("ka");
+                    }
+                }
+                $(".schedule-bd li").find(".b-nq")
+                //今天的日期点击
+                $(that).children("span").bind("click",function () {
+                    location.href='';
+                })
+            }else{
+                //今天之后的日期
+                $(that).children("span").bind("click",function () {
+                    return false;
+                })
+            }
+        });
+    }
+    var mySchedule = new Schedule({
+        el: '#schedule-box',
+        clickCb: function (y,m,d) {
+            status()
+        },
+        nextMonthCb: function (y,m,d) {
+            status()
+        },
+        prevMonthCb: function (y,m,d) {
+            status()
+        },
+        nextYeayCb: function (y,m,d) {
+            status()
+        },
+        prevYearCb: function (y,m,d) {
+            status()
+        }
+    });
+    $(function () {
+        status();
+    })
+</script>
+<script>
+    $(function () {
+        //点击事件300s延迟
+        FastClick.attach(document.body);
+        var startX,startY,moveEndX,moveEndY,X,Y;
+        $(".calendar-warp")
+            .on("touchstart", function(e) {
+                startX = e.originalEvent.changedTouches[0].pageX;
+                startY = e.originalEvent.changedTouches[0].pageY;
+            })
+            .on("touchmove", function(e) {
+                e.preventDefault();
+                moveEndX = e.originalEvent.changedTouches[0].pageX;
+                moveEndY = e.originalEvent.changedTouches[0].pageY;
+                X = moveEndX - startX;
+                Y = moveEndY - startY;
+
+                if ( Math.abs(Y) > Math.abs(X) && Y > 0) {
+                    console.log("向下");
+                    $(".schedule-warp").height("auto");
+                    $(".schedule-warp>ul").css("top","0");
+                    $(".status-icon").children("i").removeClass("icon-angle-double-down").addClass("icon-xiangshang1");
+                    $(".status-icon").children("span").html("向上");
+                }
+                else if ( Math.abs(Y) > Math.abs(X) && Y < 0 ) {
+                    console.log("向上");
+                    $(".schedule-warp").height("1rem");
+                    $(".schedule-warp>ul").css("top","-1.9rem");
+                    $(".status-icon").children("i").removeClass("icon-xiangshang1").addClass("icon-angle-double-down");
+                    $(".status-icon").children("span").html("向下");
+                }
+            });
+    })
+</script>
+</body>
+</html>
